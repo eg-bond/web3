@@ -2,7 +2,7 @@ pragma solidity ^0.8.7;
 
 contract Events{ 
 
-    uint someId = 0;
+    uint public someId = 0;
 
     event Incremented(uint increment, string message, address sender);    
     // The index parameter allows us to filter the event logs by these parameters in the future

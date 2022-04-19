@@ -1,0 +1,12 @@
+{
+  "name": "web3",
+  "version": "1.0.0",
+  "description": "some web3 stuff",
+  "main": "index.js",
+  "repository": "https://github.com/eg-bond/web3.git",
+  "author": "eg-bond <eg-bond@yandex.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0"
+  }
+}
