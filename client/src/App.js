@@ -23,7 +23,6 @@ export const tokensReduser = (state, action) => {
       delete newState[action.address]
       return newState
     case 'UPDATE_BALANCE':
-      debugger
       return {
         ...state,
         [action.address]: { ...state[action.address], balance: action.balance },
@@ -37,10 +36,6 @@ export const tokensReduser = (state, action) => {
 function App() {
   let web3 = useWeb3()
   let selectedAccount = useCurrentAccount()
-
-  // useEffect(() => {
-  //   eventsContract(web3)
-  // }, [])
 
   // native coin balance
   const [balance, setBalance] = useState(0)
@@ -117,7 +112,7 @@ function App() {
   window.eventsC = eventsContract
 
   // SomeCoin contract address
-  // 0xEbA9c9Ab25b51CC6ADF6ce7D79bfCc89Ea6fE38D
+  // 0xcBF14f7f8A3930a4c127516BFAfa8dD145fE72F2
 
   const addToken = async address => {
     const tokenContract = createContract(web3, bep20Abi, address)
@@ -129,13 +124,17 @@ function App() {
     dispatch({ type: 'ADD_TOKEN', symbol, balance, address })
   }
 
+  //subscribe to transfer events for added tokens
   useEffect(() => {
     Object.keys(tokens).map(address => {
+      if (!selectedAccount) {
+        return
+      }
       const tokenContract = createContract(web3, erc20Abi, address)
       tokenContract.events.Transfer(
         {
           filter: {
-            from: ['0x6923175AFD91cDaC22dD3E0F1253C8b04eDAD75F'],
+            from: [selectedAccount],
           },
         },
         () => {
@@ -143,29 +142,28 @@ function App() {
           updateTokenBalance(tokenContract)
         }
       )
-      // tokenContract.events.Transfer(
-      //   {
-      //     filter: {
-      //       to: [selectedAccount],
-      //     },
-      //   },
-      //   () => {
-      //     console.log('balance updated')
-      //     updateTokenBalance(tokenContract)
-      //   }
-      // )
+      tokenContract.events.Transfer(
+        {
+          filter: {
+            to: [selectedAccount],
+          },
+        },
+        () => {
+          console.log('balance updated')
+          updateTokenBalance(tokenContract)
+        }
+      )
     })
 
     return () => {
-      // unsubscribe
+      web3.eth.clearSubscriptions()
     }
-  }, [])
-  console.log(selectedAccount)
+  }, [selectedAccount])
+  // console.log(selectedAccount)
+
   const updateTokenBalance = async contract => {
     // debugger
-    let balance = await contract.methods
-      .balanceOf('0x6923175AFD91cDaC22dD3E0F1253C8b04eDAD75F')
-      .call()
+    let balance = await contract.methods.balanceOf(selectedAccount).call()
     let address = contract._address
     balance = web3.utils.fromWei(balance, 'ether')
 
