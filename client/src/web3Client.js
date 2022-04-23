@@ -1,6 +1,14 @@
 import { useState, useEffect, useMemo } from 'react'
 import Web3 from 'web3'
-import { bep20Abi } from './bep20Abi'
+import { bep20Abi } from './abis/bep20Abi'
+
+export const chains = {
+  1: 'ethereum',
+  56: 'binance',
+  137: 'polygon',
+  250: 'fantom',
+  1337: 'ganache',
+}
 
 // return web3 instance
 export const useWeb3 = () => {
@@ -38,10 +46,7 @@ export const useCurrentAccount = () => {
 //   return networkId
 // }
 
-// '0xC17c30e98541188614dF99239cABD40280810cA3'
-
 export const createContract = (web3, abi, contractAddress) => {
-  console.log('contract created by usual')
   return new web3.eth.Contract(abi, contractAddress)
 }
 
@@ -52,14 +57,3 @@ export const useContract = (web3, abi, contractAddress) => {
   )
   return contract
 }
-
-// // Subscribe to EventName event
-// function subscribe(EventName) {
-//   eventsInstance.events[EventName]()
-//     // Fires once after the subscription successfully connected. Returns the subscription id
-//     .on('connected', Id => console.log(Id))
-//     // Fires on each incoming event with the event object as argument
-//     .on('data', event => console.log(event))
-//     // Fires when an error in the subscription occurs
-//     .on('error', err => console.log(err))
-// }
