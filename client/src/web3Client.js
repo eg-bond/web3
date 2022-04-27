@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
 import Web3 from 'web3'
-import { bep20Abi } from './abis/bep20Abi'
 
 export const chains = {
   1: 'ethereum',
@@ -8,6 +7,23 @@ export const chains = {
   137: 'polygon',
   250: 'fantom',
   1337: 'ganache',
+}
+
+export const getNativeCoinSymbol = chainName => {
+  switch (chainName) {
+    case 'ethereum':
+      return 'ETH'
+    case 'binance':
+      return 'BNB'
+    case 'polygon':
+      return 'MATIC'
+    case 'fantom':
+      return 'FTM'
+    case 'ganache':
+      return 'ETH'
+    default:
+      break
+  }
 }
 
 // return web3 instance

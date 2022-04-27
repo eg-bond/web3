@@ -3,18 +3,15 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import AppNew from './AppNew'
-import AppContainer from './AppNew'
 import { BrowserRouter } from 'react-router-dom'
 import Web3Provider from './Web3Provider'
-import WalletInit from './AppNew'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Web3Provider>
-        <WalletInit />
+        <App />
       </Web3Provider>
     </BrowserRouter>
   </React.StrictMode>
