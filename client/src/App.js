@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
-import WalletInit from './Wallet'
-import SomeComponent from './SomeComponent'
 
+import './App.css'
+import WalletInit from './Components/Wallet/WalletInit'
+
+import SomeComponent from './SomeComponent'
+const someProp = 'prop'
 function App() {
   return (
     <div>
@@ -19,7 +22,7 @@ function App() {
       </div>
       <Routes>
         <Route path='/' element={<WalletInit />} />
-        <Route path='somth' element={<SomeComponent />} />
+        <Route path='somth' element={<SomeComponent someProp={someProp} />} />
       </Routes>
     </div>
   )

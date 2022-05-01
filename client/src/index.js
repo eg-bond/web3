@@ -8,13 +8,13 @@ import Web3Provider from './Web3Provider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Web3Provider>
-        <App />
-      </Web3Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <Web3Provider>
+      <App />
+    </Web3Provider>
+  </BrowserRouter>
+  // </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function
